@@ -1,0 +1,9 @@
+struct Event{
+	int d, w, t;
+	
+	bool operator < (const Event &e) const {
+		return w > e.w || (w == e.w && d > e.d);
+	}// operator can be used to define < operatiion
+};
+
+map<Event, int> cur;

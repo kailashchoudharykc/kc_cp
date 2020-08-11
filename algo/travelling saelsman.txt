@@ -1,0 +1,21 @@
+ll dp[(1LL << 16)][16][16];
+ll travelling_salesman(ll x, ll start, ll end)
+{
+  if (dp[x][start][end] != -1)
+    return dp[x][start][end];
+
+  if (x == (1LL << n) - 1)
+    return **;// value at the end
+
+  dp[x][start][end] = 0;
+  for (int i = 0; i < n; ++i)
+  {
+    if ((x & (1LL << i)) == 0)
+    {
+
+      ll temp = min(m1[end][i], fun(x | (1LL << i), start, i));
+      dp[x][start][end] = max(temp, dp[x][start][end]);
+    }
+  }
+  return dp[x][start][end];
+}

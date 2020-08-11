@@ -1,0 +1,107 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long int
+#define mp make_pair
+#define pb push_back
+#define sz(a) (ll) a.size()
+#define ff first
+#define ss second
+#define rep(i, a, b) for (ll i = (a); i <= (b); ++i)
+#define oo 1e18
+#define pi pair<ll, ll>
+#define all(x) x.begin(), x.end()
+const ll mod = 998244353ll;
+const ll P = 1000000007ll;
+const ll N = 200005ll;
+vector<int> g[N];
+ll a[N], b[N];
+ll d[N];
+vector<int> inc[N];
+void solve()
+{
+  ll n, m, k;
+  cin >> n >> m >> k;
+
+  rep(i, 0, m - 1)
+  {
+    cin >> a[i];
+    cin >> b[i];
+    g[a[i]].pb(b[i]);
+    g[b[i]].pb(a[i]);
+  }
+
+  d[1] = 1;
+  queue<int> q;
+  q.push(1);
+
+  while (q.size())
+  {
+    int x = q.front();
+    q.pop();
+    for (auto v : g[x])
+    {
+      if (d[v] == 0)
+      {
+        d[v] = d[x] + 1;
+        q.push(v);
+      }
+    }
+  }
+  rep(i, 0, m - 1)
+  {
+    if (d[a[i]] + 1 == d[b[i]])
+      inc[b[i]].pb(i);
+    if (d[b[i]] + 1 == d[a[i]])
+      inc[a[i]].pb(i);
+  }
+
+  vector<int> f(n + 1, 0);
+  vector<string> res;
+
+  rep(i, 1, k)
+  {
+    string s(m, '0');
+
+    for (int j = 2; j <= n; ++j)
+      s[inc[j][f[j]]] = '1';
+
+    res.pb(s);
+    bool ok = false;
+    for (int j = 2; j <= n; ++j)
+      if (f[j] + 1 < inc[j].size())
+      {
+        ok = true;
+        f[j]++;
+        break;
+      }
+      else
+        f[j] = 0;
+
+    if (!ok)
+      break;
+  }
+  cout << res.size() << "\n";
+
+  for (auto v : res)
+    cout << v << "\n";
+}
+
+int main()
+{
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+
+  freopen("input.txt", "r", stdin);
+  freopen("output.txt", "w", stdout);
+
+  ll t = 1;
+  //cin >> t;
+  while (t--)
+  {
+    solve();
+    cout << "\n";
+  }
+  return 0;
+}

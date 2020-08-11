@@ -1,0 +1,18 @@
+class cmp
+{
+public:
+  bool operator()(pair<ll, pair<ll, ll>> a, pair<ll, pair<ll, ll>> b)
+  {
+    if (a.ff < b.ff)//chose which goes bottom
+      return true;
+
+    else if (a.ff == b.ff)
+    {
+      if (a.ss.ff > b.ss.ff)
+        return true;
+    }
+    return false;
+  }
+};
+
+priority_queue<pair<ll, pair<ll, ll>>, std::vector<pair<ll, pair<ll, ll>>>, cmp> q;// also write vector

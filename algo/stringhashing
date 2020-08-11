@@ -1,0 +1,16 @@
+const ll t = 31ll;
+const ll P = 1000000007ll;
+ll ha[N], pw[N];
+char mode[N], str[N];
+void prework(int n)
+{
+  ha[0] = 0ll;
+  pw[0] = 1ll;
+  for (int i = 1; i <= n; i++)
+    ha[i] = (ha[i - 1] * t + (ll)(str[i] - 'a' + 1)) % P,
+    pw[i] = (pw[i - 1] * t) % P;
+}
+
+ll get_hash(int l, int r) { return ((ha[r] - ha[l - 1] * pw[r - l + 1]) % P + P) % P; }
+
+// get hash gives you hash of given substring

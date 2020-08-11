@@ -1,0 +1,42 @@
+int seg[N];
+ 
+void update(ll s, ll e, ll i, ll x, ll val)
+{
+  if (s == e)
+  {
+    seg[i] += val;
+    return;
+  }
+  ll mid = (s + e) / 2;
+  if (x <= mid)
+  {
+    update(s, mid, 2 * i, x, val);
+  }
+  else
+  {
+    update(mid + 1, e, 2 * i + 1, x, val);
+  }
+  if(2*i<N)
+  seg[i] = seg[2 * i];
+  if(2*i+1<N)
+  seg[i] += seg[2 * i + 1];
+}
+ 
+ll query(ll s, ll e, ll i, ll x)
+{
+  if (s == e)
+  {
+    return s;
+  }
+ 
+  ll mid = (s + e) / 2;
+ 
+  if (x <= seg[2 * i])
+  {
+    return query(s, mid, 2 * i, x);
+  }
+  else
+  {
+    return query(mid + 1, e, 2 * i + 1, x - seg[2 * i]);
+  }
+}

@@ -1,0 +1,8 @@
+1)if x and y are coprime
+then their exist c such that c belongs to (1,x-1) inclusive
+cy + 1 divisble y x;
+proof 
+(y*i) congruent to (y*j)%x
+if x and y are coprime
+i congruent to j
+i = j%x;

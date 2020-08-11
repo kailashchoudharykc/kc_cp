@@ -1,0 +1,21 @@
+void update(int x, int delta)
+{
+      for(; x <= n; x += x&-x)
+        BIT[x] += delta;
+}
+int query(int x)
+{
+     int sum = 0;
+     for(; x > 0; x -= x&-x)
+        sum += BIT[x];
+     return sum;
+}
+int find(int k){
+	int l=1,r=n,ans=n;
+	while(l<=r){
+		int mid=l+r>>1;
+		if(query(mid)>=k)ans=mid,r=mid-1;
+		else l=mid+1;
+	} 
+	return ans;
+}//find index having sum k

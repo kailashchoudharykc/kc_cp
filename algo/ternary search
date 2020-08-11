@@ -1,0 +1,16 @@
+ll chk(ll x)
+{
+    //implement check function
+}
+  ll ans;
+  while (l <= r)
+  {
+    ll lmid = (r - l) / 3 + l;
+    ll rmid = r - (r - l) / 3;
+
+    if (chk(lmid) <= chk(rmid))
+      ans = lmid, r = rmid - 1;
+    else
+      ans = rmid, l = lmid + 1;
+  }
+// used for unimodal function increasung then decreasing 

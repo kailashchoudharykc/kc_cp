@@ -1,0 +1,46 @@
+ll LIM = 17;
+int depth[N + 5];
+int par[N + 5][LIM + 1];
+
+void build(int cur, int p)
+{
+	int i;
+
+	depth[cur] = depth[p] + 1;
+	par[cur][0] = p;
+	for (i = 1; i <= LIM; i++)
+		par[cur][i] = par[par[cur][i - 1]][i - 1];
+
+	for (int x : adj[cur])
+		if (x != p)
+			build(x, cur);
+}
+
+int lca_len(int a, int b)
+{
+	int i, len = 0;
+
+	if (depth[a] > depth[b])
+		swap(a, b);
+	for (i = LIM; i >= 0; i--)
+	{
+		if (depth[par[b][i]] >= depth[a])
+		{
+			b = par[b][i];
+			len += (1 << i);
+		}
+	}
+	
+	if (a == b)
+		return len;
+	for (i = LIM; i >= 0; i--)
+	{
+		if (par[a][i] != par[b][i])
+		{
+			a = par[a][i];
+			b = par[b][i];
+			len += (1 << (i + 1));
+		}
+	}
+	return len + 2;
+}

@@ -1,0 +1,42 @@
+struct MyStack {
+    int cnt = 0;
+    int allOpens = 0;
+    stack<int> s;
+    stack<int> minValue;
+    stack<int> maxValue;
+
+    void push(int x) {
+        s.push(x);
+        cnt += x;
+        if (x == 1) {
+            allOpens += 1;
+        }
+        minValue.push((minValue.size() ? min(minValue.top(), cnt) : cnt));
+        maxValue.push((maxValue.size() ? max(maxValue.top(), cnt) : cnt));
+    }
+
+    void pop() {
+        if (s.size() == 0) {
+            return;
+        }
+        cnt -= s.top();
+        if (s.top() == 1) {
+            allOpens -= 1;
+        }
+        s.pop();
+        minValue.pop();
+        maxValue.pop();
+    }
+
+    int top() {
+        return s.top();
+    }
+
+    bool isCorrect() {
+        return (minValue.size() == 0 || minValue.top() >= 0);
+    }
+
+    int depth() {
+        return (maxValue.size() ? maxValue.top() : 0);
+    }
+};

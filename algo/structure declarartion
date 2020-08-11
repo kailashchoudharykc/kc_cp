@@ -1,0 +1,9 @@
+struct dat
+{
+  ll x1, x2, y1, y2;
+  dat(ll x1_, ll x2_, ll y1_, ll y2_) : x1(x1_), x2(x2_), y1(y1_), y2(y2_) {}
+  bool operator<(const dat &a)
+  {
+    return x1 < a.x1;
+  }
+};
